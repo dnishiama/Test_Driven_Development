@@ -18,7 +18,9 @@ public class Cartao {
     
     public static String validaBandeira(String numCartao) {
         String bandeira = "INVALIDO";
-
+		if(numCartao.length() < 13 && numCartao.length() > 16){
+			return bandeira;
+		}
         String digito1 = numCartao.substring(0, 1);
         String digito2 = numCartao.substring(0, 2);
         String digito3 = numCartao.substring(0, 3);
@@ -86,14 +88,6 @@ public class Cartao {
     	}
     	
     }
-	
-	public static boolean validaDigitos(String numCartao){
-		if(numCartao.length() > 12 && numCartao.length() < 17){
-			return true;
-		}
-		return false;
-		
-	}
 		
 
 }

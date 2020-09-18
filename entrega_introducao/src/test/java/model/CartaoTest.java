@@ -22,12 +22,5 @@ public class CartaoTest{
 	@Test
 	public void validarNumeroCartao(){		
 		assertEquals (true, card.validaNumero(numero));	
-	}
-	
-	@Test
-	public void validarNumeroDigitos(){		
-		assertEquals (true, card.validaDigitos(numero));	
-	}
-	
-	
+	}	
 }
