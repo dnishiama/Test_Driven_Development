@@ -15,7 +15,7 @@ public class Cartao {
             return false;
         }
     }
-    	
+	
 	public static boolean numDigitos(String numCartao){
 		int digito = numCartao.length();
 		if(digito < 13 || digito > 16){
@@ -25,40 +25,44 @@ public class Cartao {
 			return true;
 		}
 	}
-	
+    
     public static String validaBandeira(String numCartao) {
-        String bandeira = "INVALIDO";
-		if(numCartao.length() < 13 && numCartao.length() > 16){
-			return bandeira;
+        String bandeira = "";
+		int digitos = 0;
+		if(numDigitos(numCartao)){
+			digitos = numCartao.length();
 		}
-        String digito1 = numCartao.substring(0, 1);
+		
+		String digito1 = numCartao.substring(0, 1);
         String digito2 = numCartao.substring(0, 2);
         String digito3 = numCartao.substring(0, 3);
         String digito4 = numCartao.substring(0, 4);
+		
+		switch (digitos) {
+		  case 13:
+			if (digito1.equals("4")) bandeira = "VISA";
+			else bandeira = "INVALIDO";			
+			break;
+		  case 14:
+			if (digito2.equals("36") || digito2.equals("38") || (digito3.compareTo("300") >= 0 && digito3.compareTo("305") <= 0)) bandeira = "DINERS CLUB";
+			else bandeira = "INVALIDO";
+			break;
+		  case 15:
+			if (digito2.equals("34") || digito2.equals("37")) bandeira = "AMERICAN EXPRESS"; 
+			else if (digito4.equals("2014") || digito4.equals("2149")) bandeira = "EN ROUTE";
+			else bandeira = "INVALIDO";			
+			break;
+		  case 16:
+			if (digito1.equals("4")) bandeira = "VISA";
+			else if (digito2.compareTo("51") >= 0 && digito2.compareTo("55") <= 0) bandeira = "MASTERCARD";
+			else bandeira = "INVALIDO";
+			break;
+		  case 0:
+			bandeira = "INVALIDO";			
+		  default:
+			bandeira = "INVALIDO";
+		}
 
-        if (isNumber(numCartao)) {
-            if (digito1.equals("4")) {
-                if (numCartao.length() == 13 || numCartao.length() == 16)
-                	bandeira = "VISA";
-            }          
-            else if (digito2.compareTo("51") >= 0 && digito2.compareTo("55") <= 0) {
-                if (numCartao.length() == 16)
-                	bandeira = "MASTERCARD";
-            }            
-            else if (digito2.equals("34") || digito2.equals("37")) {
-                if (numCartao.length() == 15)
-                	bandeira = "AMERICAN EXPRESS";
-            }            
-            else if (digito4.equals("2014") || digito4.equals("2149")) {
-                if (numCartao.length() == 15)
-                	bandeira = "EN ROUTE";
-            }            
-            else if (digito2.equals("36") || digito2.equals("38") 
-            		|| (digito3.compareTo("300") >= 0 && digito3.compareTo("305") <= 0)) {
-                if (numCartao.length() == 14)
-                	bandeira = "DINERS CLUB";
-            }
-        }
         return bandeira;
     }
     
